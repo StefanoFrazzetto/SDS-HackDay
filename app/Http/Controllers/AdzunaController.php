@@ -16,7 +16,7 @@ class AdzunaController extends Controller
     }
 
     public function get($key) {
-        $url = urlencode("http://api.adzuna.com/v1/api/jobs/gb/categories?app_id=$this->adzuna_id&app_key=$this->adzuna_key&&content-type=application/json");
+        $url = urlencode("http://api.adzuna.com/v1/api/jobs/gb/categories?app_id=" . $this->adzuna_id . "&app_key=" .$this->adzuna_key);
         $json = json_decode(file_get_contents($url), true);
         return response()->json(['data' => $json]);
     }
