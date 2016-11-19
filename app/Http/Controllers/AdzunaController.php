@@ -36,15 +36,6 @@ class AdzunaController extends Controller
         return response()->json(json_decode($result, true));
     }
 
-    private function recursive_unset(&$array, $unwanted_key) {
-        unset($array[$unwanted_key]);
-        foreach ($array as &$value) {
-            if (is_array($value)) {
-                recursive_unset($value, $unwanted_key);
-            }
-        }
-    }
-
     public function getCounty($county) {
         $url = "api.adzuna.com/v1/api/jobs/gb/geodata?app_id=" . $this->adzuna_id . "&app_key=" . $this->adzuna_key;
         $url .= "&location0=UK&location1=Scotland&location2=$county&content-type=application/json";
