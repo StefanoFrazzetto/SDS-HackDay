@@ -91,7 +91,7 @@
 <script>
     $("input").on('keyup', function (e) {
         if (e.keyCode == 13) {
-            console.log("Hello");
+            search($("input").val());
         }
     });
 </script>
