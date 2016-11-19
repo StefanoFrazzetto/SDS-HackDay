@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class GetDataController extends Controller
+class AdzunaControler extends Controller
 {
     protected $adzuna_id;
     protected $adzuna_key;
