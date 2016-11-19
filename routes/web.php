@@ -15,4 +15,4 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/adzuna/{jobtype}', 'AdzunaController@get');
+Route::get('/adzuna/categories', 'AdzunaController@getCategories');
