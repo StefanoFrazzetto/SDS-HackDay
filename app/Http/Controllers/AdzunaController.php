@@ -15,9 +15,39 @@ class AdzunaController extends Controller
         $this->adzuna_key = getenv("ADZUNA_KEY");
     }
 
-    public function getCategories()
+    public function getAll()
     {
-        $url = urlencode("http://api.adzuna.com/v1/api/jobs/gb/categories?app_id=" . $this->adzuna_id . "&app_key=" . $this->adzuna_key);
+        $url = "api.adzuna.com/v1/api/jobs/gb/geodata?app_id=" . $this->adzuna_id . "&app_key=" . $this->adzuna_key;
+        $url .= "&location0=UK&location1=Scotland&content-type=application/json";
+
+        //  Initiate curl
+        $ch = curl_init();
+        // Disable SSL verification
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        // Will return the response, if false it print the response
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // Set the url
+        curl_setopt($ch, CURLOPT_URL, $url);
+        // Execute
+        $result = curl_exec($ch);
+        // Closing
+        curl_close($ch);
+
+        return response()->json(json_decode($result, true));
+    }
+
+    private function recursive_unset(&$array, $unwanted_key) {
+        unset($array[$unwanted_key]);
+        foreach ($array as &$value) {
+            if (is_array($value)) {
+                recursive_unset($value, $unwanted_key);
+            }
+        }
+    }
+
+    public function getCounty($county) {
+        $url = "api.adzuna.com/v1/api/jobs/gb/geodata?app_id=" . $this->adzuna_id . "&app_key=" . $this->adzuna_key;
+        $url .= "&location0=UK&location1=Scotland&location2=$county&content-type=application/json";
 
         //  Initiate curl
         $ch = curl_init();

@@ -15,4 +15,5 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/adzuna/categories', 'AdzunaController@getCategories');
+Route::get('/adzuna', 'AdzunaController@getAll');
+Route::get('/adzuna/{county}', 'AdzunaController@getCounty');
