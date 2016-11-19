@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+ini_set("allow_url_fopen", 1);
+
 class AdzunaController extends Controller
 {
     protected $adzuna_id;
