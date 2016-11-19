@@ -15,5 +15,10 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/adzuna', 'AdzunaController@getAll');
-Route::get('/adzuna/{county}', 'AdzunaController@getCounty');
+Route::get('/adzuna/job', 'AdzunaController@getAll');
+Route::get('/adzuna/job/{job}', 'AdzunaController@getAll');
+Route::get('/adzuna/county/{county}', 'AdzunaController@getCounty');
+Route::get('/adzuna/county/{county}/job/{job}', 'AdzunaController@getCounty');
+Route::get('/adzuna/categories', 'AdzunaController@getJobCategories');
+Route::get('/adzuna/companies', 'AdzunaController@getTopCompanies');
+Route::get('/adzuna/companies/{county}', 'AdzunaController@getTopCompanies');
