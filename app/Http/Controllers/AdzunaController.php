@@ -32,6 +32,6 @@ class AdzunaController extends Controller
         // Closing
         curl_close($ch);
 
-        echo json_decode($result, true);
+        return response()->json(json_decode($result, true));
     }
 }
