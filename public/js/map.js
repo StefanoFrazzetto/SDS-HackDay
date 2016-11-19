@@ -36,7 +36,7 @@ function getJobCount(){
 			showMapData(response);
 		}
 	}
-	get.open("GET", "adzuna/job", true);
+	get.open("GET", "adzuna", true);
 	get.send();
 }
 
@@ -47,45 +47,25 @@ function search(str){
 			// TODO: Parse response and display it to the sidebar
 		}
 	};
-	get.open("GET", "adzuna/job" + str, true);
+	get.open("GET", "adzuna/" + str, true);
 	get.send();
 }
 
 function areaColor(highestJob, jobs){
 	var num = (jobs / highestJob) * 100;
-	var color = '';
 	
-	if(num > 90){
-		color =  '#ae5e57';
-	}
-	if(num > 80){
-		color =  '#af6c58';
-	}
-	if(num > 70){
-		color =  '#b17b59';
-	} 
-	if(num > 60){
-		color =  '#b2895a';
-	} 
 	if(num > 50){
-		color =  '#b4985b';
-	} 
-	if(num > 40){
-		color =  '#b5a65c';
-	} 
-	if(num > 30){
-		color =  '#b6b55e';
-	} 
-	if(num > 20){
-		color =  '#acb85f';
-	} 
-	if(num > 10){
-		color =  '#a0b960';
+		return '#ff0031';
+	} else if(num > 25){
+		return '#e86d16';
+	} else if(num > 10){
+		return '#ffcc0c';
+	} else if(num > 3){
+		return '#96e816';
 	} else {
-		color =  '#94bb61';
+		return '#12ff75';
 	}
 	
-	return color;
 }
 
 function showMapData(data){
