@@ -15,12 +15,15 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/adzuna/job', 'AdzunaController@getAll');
-Route::get('/adzuna/job/{job}', 'AdzunaController@getAll');
-Route::get('/adzuna/county/{county}', 'AdzunaController@getCounty');
+Route::get('/adzuna/job', 'AdzunaController@countJobs');
+Route::get('/adzuna/job/{job}', 'AdzunaController@countJobs');
+Route::get('/adzuna/county/{county}', 'AdzunaController@countJobsCounty');
 
-Route::get('/adzuna/county/{county}/job/{job}', 'AdzunaController@getCounty');
-Route::get('/adzuna/job/{job}/county/{county}', 'AdzunaController@getCounty');
+Route::get('/adzuna/county/{county}/job/{job}', 'AdzunaController@countJobsCounty');
+Route::get('/adzuna/job/{job}/county/{county}', 'AdzunaController@countJobsCounty');
+
+Route::get('/adzuna/locate/job/{job}/county/{county}', 'AdzunaController@getJobs');
+Route::get('/adzuna/locate/county/{county}/job/{job}', 'AdzunaController@getJobs');
 
 Route::get('/adzuna/categories', 'AdzunaController@getJobCategories');
 Route::get('/adzuna/companies', 'AdzunaController@getTopCompanies');

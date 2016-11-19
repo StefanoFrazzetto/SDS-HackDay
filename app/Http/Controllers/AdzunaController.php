@@ -56,7 +56,7 @@ class AdzunaController extends Controller
      * @param string $job
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getAll($job = "")
+    public function countJobs($job = "")
     {
         $url = $this->website . "geodata?app_id=" . $this->adzuna_id . "&app_key=" . $this->adzuna_key;
         $url .= "&location0=UK&location1=Scotland&content-type=application/json";
@@ -69,7 +69,7 @@ class AdzunaController extends Controller
     }
 
 
-    public function getCounty($county = "", $job = "") {
+    public function countJobsCounty($county = "", $job = "") {
         $url = $this->website . "geodata?app_id=" . $this->adzuna_id . "&app_key=" . $this->adzuna_key;
         $url .= $this->getLocation($county);
         $url .= $this->format;
@@ -79,6 +79,27 @@ class AdzunaController extends Controller
         }
 
         return $this->getter($url);
+    }
+
+    public function getJobsByCounty($county, $job = "", $results = 50) {
+        $url = $this->website . "search/1?app_id=" . $this->adzuna_id . "&app_key=" . $this->adzuna_key;
+        $url .= $this->getLocation($county);
+        $url .= "&results_per_page=$results";
+        $url .= $this->format;
+
+        if ($job != "") {
+            $url .= "&what=" . urlencode($job);
+        }
+
+        if ($job != "") {
+            $url .= "&what=" . urlencode($job);
+        }
+
+        return $this->getter($url);
+    }
+
+    public function getJobsByCity($city, $job) {
+
     }
 
     /**
