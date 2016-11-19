@@ -36,7 +36,7 @@ function getJobCount(){
 			showMapData(response);
 		}
 	}
-	get.open("GET", "adzuna", true);
+	get.open("GET", "adzuna/job", true);
 	get.send();
 }
 
@@ -47,7 +47,7 @@ function search(str){
 			// TODO: Parse response and display it to the sidebar
 		}
 	};
-	get.open("GET", "adzuna/" + str, true);
+	get.open("GET", "adzuna/job" + str, true);
 	get.send();
 }
 
