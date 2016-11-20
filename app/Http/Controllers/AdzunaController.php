@@ -156,8 +156,13 @@ class AdzunaController extends Controller
      * @param $job
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getTopCompaniesByJob($job) {
+    public function getTopCompaniesByJob($job = "")
+    {
         $url = $this->base_site . "categories?app_id=" . $this->adzuna_id . "&app_key=" . $this->adzuna_key . $this->format;
+
+        if ($job != "") {
+            $url .= "&what=" . urlencode($job);
+        }
 
         return $this->getter($url);
     }
