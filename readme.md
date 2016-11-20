@@ -13,5 +13,5 @@ Frontend:   Cameron McCallion   https://github.com/cammmmy
 
 ## License
 
-This open-sourced software is licensed under the [GNU AGPLv3](http://www.gnu.org/licenses/agpl-3.0.txt).
+This open-sourced software is licensed under the [GNU AGPLv3 license](http://www.gnu.org/licenses/agpl-3.0.txt).
 Laravel is licensed under the [MIT license](https://opensource.org/licenses/MIT).
