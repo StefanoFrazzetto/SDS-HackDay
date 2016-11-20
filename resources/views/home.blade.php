@@ -78,13 +78,14 @@
 {{-- LOGO --}}
 <div id="logoContainer">
     <a href="https://www.skillsdevelopmentscotland.co.uk/">
-        <img src="http://www.levertraining.com/SiteAssets/employability-fife/SDS_LOGO.JPG" title="Skills Devleopment Scotalnd"/>
+        <img src="{{ url('images/SDS_LOGO.JPG') }}" title="Skills Devleopment Scotalnd"/>
     </a>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-<script src="js/map.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDICGxukonu4A08SP3IrAlM0madI_e1QBY&callback=initMap"></script>
+{{-- SCRIPTS --}}
+<script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="{{ url('js/map.js') }}"></script>
+<script async defer src="//maps.googleapis.com/maps/api/js?key=AIzaSyDICGxukonu4A08SP3IrAlM0madI_e1QBY&callback=initMap"></script>
 </body>
 
 <script>
