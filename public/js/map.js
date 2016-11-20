@@ -36,7 +36,7 @@ function getJobCount(){
 			showMapData(response);
 		}
 	}
-	get.open("GET", "adzuna/job", true);
+	get.open("GET", "adzuna/job/", true);
 	get.send();
 }
 
@@ -83,7 +83,8 @@ function showMapData(data){
 	}
 	
 	for(var i = 0; i < locations.length; i++){
-		var area = locations[i].location.area.pop(),
+		var areas = locations[i].location.area;
+		var area = areas[areas.length - 1],
 			count = locations[i].count;
 		
 		var feature = map.data.getFeatureById(area);

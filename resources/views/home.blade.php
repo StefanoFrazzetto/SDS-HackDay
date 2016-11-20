@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Debuggers - Interactive Job Map</title>
-    {{--    <style type="text/css" href="{{ url('css/app.css') }}"></style>--}}
     <style type="text/css">
         html, body {
             font-size: 16px;
@@ -34,6 +33,7 @@
 
         #searchbar input {
             min-height: 50px;
+            text-transform: capitalize;
         }
 
         #searchResults {
@@ -64,28 +64,27 @@
 
     </style>
 </head>
-
 <body>
 
+{{-- MAP --}}
 <div id="map"></div>
-<script src="js/map.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDICGxukonu4A08SP3IrAlM0madI_e1QBY&callback=initMap"></script>
 
+{{-- SEARCHBAR --}}
 <div id="searchbar">
     <input type="text" name="search" placeholder="Search Job Title">
     <div id="searchResults"></div>
 </div>
 
+{{-- LOGO --}}
 <div id="logoContainer">
     <a href="https://www.skillsdevelopmentscotland.co.uk/">
         <img src="http://www.levertraining.com/SiteAssets/employability-fife/SDS_LOGO.JPG" title="Skills Devleopment Scotalnd"/>
     </a>
 </div>
 
-<script
-        src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="js/map.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDICGxukonu4A08SP3IrAlM0madI_e1QBY&callback=initMap"></script>
 </body>
 
 <script>
