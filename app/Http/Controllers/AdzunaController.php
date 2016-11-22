@@ -19,22 +19,16 @@ class AdzunaController extends Controller
 
     /**
      * Returns the job count for all Scottish counties.
-     * If job is specified, returns the count for that specific job.
      * If a county is specified, the count will be referred to that county.
      *
      * @param string $county
-     * @param string $job
      * @return \Illuminate\Http\JsonResponse
      */
-    public function countJobs($county = "", $job = "")
+    public function countAllJobsByCounty($county = "")
     {
         $url = $this->base_site . "geodata?app_id=" . $this->adzuna_id . "&app_key=" . $this->adzuna_key;
         $url .= $this->getLocation($county);
         $url .= $this->format;
-
-        if ($job != "") {
-            $url .= "&what=" . urlencode($job);
-        }
 
         return $this->getter($url);
     }
@@ -54,6 +48,30 @@ class AdzunaController extends Controller
         }
 
         return $location;
+    }
+
+    /**
+     * Performs the cURL request and returns a json.
+     *
+     * @param $url - the URL to get.
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function getter($url)
+    {
+        //  Initiate curl
+        $ch = curl_init();
+        // Disable SSL verification
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        // Will return the response, if false it print the response
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // Set the url
+        curl_setopt($ch, CURLOPT_URL, $url);
+        // Execute
+        $result = curl_exec($ch);
+        // Closing
+        curl_close($ch);
+
+        return response()->json(json_decode($result, true));
     }
 
 //    /**
@@ -77,26 +95,25 @@ class AdzunaController extends Controller
 //    }
 
     /**
-     * Performs the cURL request and returns a json.
+     * Returns the job count for all Scottish counties.
+     * If job is specified, returns the count for that specific job.
+     * If a county is specified, the count will be referred to that county.
      *
-     * @param $url - the URL to get.
+     * @param string $county
+     * @param string $job
      * @return \Illuminate\Http\JsonResponse
      */
-    private function getter($url) {
-        //  Initiate curl
-        $ch = curl_init();
-        // Disable SSL verification
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        // Will return the response, if false it print the response
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // Set the url
-        curl_setopt($ch, CURLOPT_URL, $url);
-        // Execute
-        $result = curl_exec($ch);
-        // Closing
-        curl_close($ch);
+    public function countJobs($job = "", $county = "")
+    {
+        $url = $this->base_site . "geodata?app_id=" . $this->adzuna_id . "&app_key=" . $this->adzuna_key;
+        $url .= $this->getLocation($county);
+        $url .= $this->format;
 
-        return response()->json(json_decode($result, true));
+        if ($job != "") {
+            $url .= "&what=" . urlencode($job);
+        }
+
+        return $this->getter($url);
     }
 
     /**
@@ -112,16 +129,17 @@ class AdzunaController extends Controller
      * @param int $results - the number of ads to retrieve
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getJobs($county = "", $job = "", $results = 50)
+    public function getJobs($job = "", $county = "", $results = 50)
     {
         $url = $this->base_site . "search/1?app_id=" . $this->adzuna_id . "&app_key=" . $this->adzuna_key;
-        $url .= $this->getLocation($county);
         $url .= "&results_per_page=$results";
-        $url .= $this->format;
 
         if ($job != "") {
             $url .= "&what=" . urlencode($job);
         }
+
+        $url .= $this->getLocation($county);
+        $url .= $this->format;
 
         return $this->getter($url);
     }

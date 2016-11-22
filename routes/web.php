@@ -19,7 +19,7 @@ Route::get('/adzuna/job', 'AdzunaController@countJobs');
 Route::get('/adzuna/job/{job}', 'AdzunaController@countJobs');
 Route::get('/adzuna/county/{county}', 'AdzunaController@countJobs');
 
-Route::get('/adzuna/county/{county}/job/{job}', 'AdzunaController@countJobs');
+Route::get('/adzuna/county/{county}', 'AdzunaController@countAllJobsByCounty');
 Route::get('/adzuna/job/{job}/county/{county}', 'AdzunaController@countJobs');
 
 Route::get('/adzuna/locate/job/{job}/county/{county}', 'AdzunaController@getJobs');
