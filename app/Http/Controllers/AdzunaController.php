@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
+
 ini_set("allow_url_fopen", 1);
 
 class AdzunaController extends Controller
@@ -10,6 +12,7 @@ class AdzunaController extends Controller
     protected $adzuna_key;
     protected $base_site = "api.adzuna.com/v1/api/jobs/gb/";
     protected $format = "&content-type=application/json";
+    private $url;
 
     public function __construct()
     {
@@ -58,41 +61,27 @@ class AdzunaController extends Controller
      */
     private function getter($url)
     {
-        //  Initiate curl
-        $ch = curl_init();
-        // Disable SSL verification
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        // Will return the response, if false it print the response
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // Set the url
-        curl_setopt($ch, CURLOPT_URL, $url);
-        // Execute
-        $result = curl_exec($ch);
-        // Closing
-        curl_close($ch);
+        $this->url = $url;
 
-        return response()->json(json_decode($result, true));
+        $res = Cache::remember($url, 30, function () {
+            //  Initiate curl
+            $ch = curl_init();
+            // Disable SSL verification
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            // Will return the response, if false it print the response
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            // Set the url
+            curl_setopt($ch, CURLOPT_URL, $this->url);
+            // Execute
+            $result = curl_exec($ch);
+            // Closing
+            curl_close($ch);
+
+            return json_decode($result, true);
+        });
+
+        return response()->json($res);
     }
-
-//    /**
-//     * Returns the job count for all Scottish counties.
-//     * If job is specified, returns the count for that specific job.
-//     * If a county is specified,
-//     *
-//     * @param string $job
-//     * @return \Illuminate\Http\JsonResponse
-//     */
-//    public function countJobs($job = "")
-//    {
-//        $url = $this->base_site . "geodata?app_id=" . $this->adzuna_id . "&app_key=" . $this->adzuna_key;
-//        $url .= "&location0=UK&location1=Scotland&content-type=application/json";
-//
-//        if ($job != "") {
-//            $url .= "&what=" . urlencode($job);
-//        }
-//
-//        return $this->getter($url);
-//    }
 
     /**
      * Returns the job count for all Scottish counties.
