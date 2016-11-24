@@ -9,6 +9,9 @@ function initMap(){
 		mapTypeId: 'roadmap'
 	});
 	map.data.loadGeoJson('json/geo.json', { idPropertyName: 'LAD13NM'});
+	map.data.addListener('addfeature', function(ev){
+		map.data.setStyle(styleFeature);
+	});
 	map.data.setStyle(styleFeature);
 	getJobCount();
 }
@@ -44,7 +47,7 @@ function search(str){
 	var get = new XMLHttpRequest();
 	get.onreadystatechange = function(){
 		if(get.readyState == 4 && get.status == 200){
-			var data = JSON.parse(get.responseText);
+			var data = JSON.parse(get.responsetext);
 			
 			showMapData(data);
 		}
@@ -83,12 +86,11 @@ function showMapData(data){
 	}
 	
 	for(var i = 0; i < locations.length; i++){
-		var areas = locations[i].location.area;
-		var area = areas[areas.length - 1],
+		var area = locations[i].location.area.pop(),
 			count = locations[i].count;
 		
 		var feature = map.data.getFeatureById(area);
-		console.log(area + " - " + count + " jobs - " + typeof feature);
+		// console.log(area + " - " + count + " jobs - " + typeof feature);
 		if(feature != null){
 			feature.setProperty('hasColor', true);
 			feature.setProperty('color', areaColor(highest, count));
