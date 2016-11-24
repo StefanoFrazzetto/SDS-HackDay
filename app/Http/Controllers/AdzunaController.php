@@ -63,7 +63,7 @@ class AdzunaController extends Controller
     {
         $this->url = $url;
 
-        $res = Cache::remember($url, 30, function () {
+        $res = Cache::remember($url, 60, function () {
             //  Initiate curl
             $ch = curl_init();
             // Disable SSL verification
