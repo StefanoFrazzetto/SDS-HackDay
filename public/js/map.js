@@ -47,7 +47,7 @@ function search(str){
 	var get = new XMLHttpRequest();
 	get.onreadystatechange = function(){
 		if(get.readyState == 4 && get.status == 200){
-			var data = JSON.parse(get.responsetext);
+			var data = JSON.parse(get.responseText);
 			
 			showMapData(data);
 		}
